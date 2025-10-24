@@ -18,6 +18,9 @@ async def help(message:Message):
 @router.message(Command('search')) #для поиска фото/файла
 async def search(message:Message):
     text = message.text.split(maxsplit=1)
+    if len(text) <2:
+        await message.answer('напишите так /search <название>')
+        return
     searc = text[1].strip()
     engine = create_engine('sqlite:///memory.db')
     with Session(bind=engine) as db:
